@@ -1,17 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-// const http = require('http');
 const fs = require('fs');
 const unzip = require('unzip');
 var requestLib = require('request');
-const bodyParser = require("body-parser");
 
 router.get('/', function(request, response) {
 	response.send('Hello World');
 });
 
-router.post('/forms', function(request, response) {
+router.post('/', function(request, response) {
 	var answers = request.body;
 	console.log(answers);
 	var name = answers["Name"];
