@@ -72,7 +72,7 @@ function retrieve_reward(folderName) {
 	var out = -1;
 	cmd.stdout.on('data', (data) => {
 	  console.log(`stdout: ${data}`);
-	  return Integer.parseInt(data);
+	  return parseInt(data);
 	});
 
 	cmd.stderr.on('data', (data) => {
