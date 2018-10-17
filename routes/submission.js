@@ -46,6 +46,9 @@ function processFile(folderName) {
 	console.log("Retrieving reward for " + folderName)
 	// call get_reward function with extracted config and controller function
 	// get score back from reward function
+
+	console.log("Reward: " + retrieve_reward(folderName));
+
 	// commit new .yml file with to github branch (or whichever schema is agreed upon)
 		// .yml file will contain name, email, instituion, and score
 
@@ -59,6 +62,26 @@ function processFile(folderName) {
 
 	// Step 3. If everything has succeeded thus far, I need to read the benchmarks/benchmark_name.yml file as an object, update the object with the newest score,
 			// email, link to explanation, name, description, and then write back to the file. This will be used by Kevin's stuff.
+
+}
+
+function retrieve_reward(folderName) {
+	const { spawn } = require('child_process');
+	const cmd = spawn('python', ['--folder-name', folderName]);
+
+	var out = -1;
+	cmd.stdout.on('data', (data) => {
+	  console.log(`stdout: ${data}`);
+	  return int(data);
+	});
+
+	cmd.stderr.on('data', (data) => {
+	  console.log(`stderr: ${data}`);
+	});
+
+	cmd.on('close', (code) => {
+	  console.log(`child process exited with code ${code}`);
+	});
 
 }
 
