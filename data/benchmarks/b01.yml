@@ -1,5 +1,5 @@
 email: abc@flower.org
 explanation_link: paper.dropbox.com/doc/Flow-Garden-new-awesome-benchmark-asdfghjkl
-name: Single-lane ring
+name: Ring Shockwaves
 yt_string: Lggtw9AOH0A
-description: 0 AVs, 22 human-driven vehicles. Inspired by the famous 2008 Sugiyama experiment demonstrating spontaneous formation of traffic shockwaves (reproduced on the left video), and a 2017 field study demonstrating the ability of AVs to suppress shockwaves.
+description: Inspired by the famous 2008 Sugiyama experiment demonstrating spontaneous formation of traffic shockwaves (reproduced on the left video), the goal is to use a single AV to suppress the shockwaves and maximize the velocity.
