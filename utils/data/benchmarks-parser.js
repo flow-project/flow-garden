@@ -26,10 +26,10 @@ var testData = [
  */
 function getBenchmarks() {
   var benchmarksData = [];
-  var testFolder = __dirname + '/../../data/benchmarks';
+  var benchmarksFolder = __dirname + '/../../data/benchmarks';
   try {
-    fs.readdirSync(testFolder).forEach(function (file) {
-      var doc = yaml.safeLoad(fs.readFileSync(testFolder + '/' + file, 'utf8'));
+    fs.readdirSync(benchmarksFolder).forEach(function (file) {
+      var doc = yaml.safeLoad(fs.readFileSync(benchmarksFolder + '/' + file, 'utf8'));
       // console.log(doc);
       doc.id = file.substr(0, file.length - 4); // strip .yml
       benchmarksData.push(doc);

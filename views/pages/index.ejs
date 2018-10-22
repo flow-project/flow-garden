@@ -39,7 +39,7 @@
         <div class="overflow-hidden bg-white rounded-lg shadow hover:shadow-raised hover:translateY-2px transition
         p-2 flex flex-row">
           <!--<img class="w-full" src="https://stitches-cdn.hyperyolo.com/demo-bg.png" alt="Sunset in the mountains">-->
-          <div class="w-1/2">
+          <div class="w-full md:w-1/2">
             <iframe class="w-full"
                     src="https://www.youtube.com/embed/<%= benchmark.yt_string%>">
             </iframe>
@@ -49,7 +49,7 @@
               <li>PPO-agent: 1000</li>
             </ol>
           </div>
-          <div class="p-6 flex flex-col justify-between w-1/2">
+          <div class="p-6 flex flex-col justify-between w-full md:w-1/2">
             <h3 class="font-medium text-grey-darkest mb-4 leading-normal"><%= benchmark.name %></h3>
             <p class="inline-flex items-center">
               <%= benchmark.description %>
