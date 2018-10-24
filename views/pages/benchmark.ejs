@@ -25,54 +25,24 @@
 </section>
 
 <ol class="font-sans list-reset container m-auto text-grey-darkest">
-  <li class="inline-block border-b border-grey-light flex justify-between items-center py-4">
-    <div class="flex items-start w-2/5">
-      <div class="w-10 h-10 rounded mr-3">
-        <div class="rounded-full h-10 w-10 bg-grey-light m-auto"></div>
-      </div>
-      <div class="flex-1 overflow-hidden">
-        <div>
-          <span class="font-bold">flow@flowproject.org</span>
-          <span class="text-grey-dark text-xs"></span>
+  <% solutions.forEach(function(solution){ %>
+    <li class="inline-block border-b border-grey-light flex justify-between items-center py-4">
+      <div class="flex items-start w-2/5">
+        <div class="w-10 h-10 rounded mr-3">
+          <div class="rounded-full h-10 w-10 bg-grey-light m-auto"></div>
         </div>
-        <p class="text-black leading-normal"></p>
-      </div>
-    </div>
-    <p class="w-2/5">Oct 21, 2018 10:37pm</p>
-    <label for="status" class="font-bold w-1/5 text-right">3000</label>
-  </li>
-  <li class="inline-block border-b border-grey-light flex justify-between items-center py-4">
-    <div class="flex items-start w-2/5">
-      <div class="w-10 h-10 rounded mr-3">
-        <div class="rounded-full h-10 w-10 bg-grey-light m-auto"></div>
-      </div>
-      <div class="flex-1 overflow-hidden">
-        <div>
-          <span class="font-bold">flow@flowproject.org</span>
-          <span class="text-grey-dark text-xs"></span>
+        <div class="flex-1 overflow-hidden">
+          <div>
+            <span class="font-bold"><%= solution.username %></span>
+            <span class="text-grey-dark text-xs"><%= solution.email %></span>
+          </div>
+          <p class="text-black leading-normal"></p>
         </div>
-        <p class="text-black leading-normal"></p>
       </div>
-    </div>
-    <p class="w-2/5">Oct 21, 2018 10:30pm</p>
-    <label for="status" class="font-bold w-1/5 text-right">2000</label>
-  </li>
-  <li class="inline-block flex justify-between items-center py-4">
-    <div class="flex items-start w-2/5">
-      <div class="w-10 h-10 rounded mr-3">
-        <div class="rounded-full h-10 w-10 bg-grey-light m-auto"></div>
-      </div>
-      <div class="flex-1 overflow-hidden">
-        <div>
-          <span class="font-bold">flow@flowproject.org</span>
-          <span class="text-grey-dark text-xs"></span>
-        </div>
-        <p class="text-black leading-normal"></p>
-      </div>
-    </div>
-    <p class="w-2/5">Oct 22, 2018 5:37pm</p>
-    <label for="status" class="font-bold w-1/5 text-right">1000</label>
-  </li>
+      <p class="w-2/5"><%= solution.timestamp %></p>
+      <label for="status" class="font-bold w-1/5 text-right"><%= solution.score %></label>
+    </li>
+  <% }) %>
 </ol>
 
 <% include ../partials/footer %>
