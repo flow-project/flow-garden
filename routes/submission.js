@@ -84,7 +84,7 @@ function retrieve_reward(folderName) {
 	var out = -1;
 	cmd.stdout.on('data', (data) => {
 	  console.log(`stdout: ${data}`);
-	  return parseInt(data.toString());
+	  return data.toString();
 	});
 
 	cmd.stderr.on('data', (data) => {
