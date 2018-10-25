@@ -51,7 +51,7 @@ function processFile(folderName, benchmark) {
 	var reward = retrieve_reward(folderName);
 	console.log("Reward: " + reward);
 
-	var file = fs.createWriteStream('data/submissions/' + benchmark + '/' + folderName + '/' + result.yml);
+	var file = fs.createWriteStream('data/submissions/' + benchmark + '/' + folderName + '/result.yml');
 	file.write("score: " + reward);
 	
 	file.on('error', function (err) {
