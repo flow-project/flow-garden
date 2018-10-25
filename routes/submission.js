@@ -14,13 +14,14 @@ router.post('/', function(request, response) {
 	console.log(answers);
 	var name = answers["Name"];
 	var email = answers["Email"];
+	// var fileURL = answers["Submission"];
 	var fileURL = "https://drive.google.com/uc?export=download&id=" + answers["Submission"];
 	var benchmark = answers["Benchmark"];
 
 	console.log("Attempting download from: " + fileURL);
 	requestLib(fileURL).on('response', function(fileResponse) {
 
-		var fileName = "submission_" + Date.now();
+		var fileName = "submission_" + Date.now().toISOString();
 		var file = fs.createWriteStream(fileName + ".zip");
 		fileResponse.pipe(file);
 		
@@ -31,10 +32,10 @@ router.post('/', function(request, response) {
 		file.on('close', function() {
 			console.log("Upload successful! Unzipping.")
 			fs.createReadStream(fileName + ".zip")
-				.pipe(unzip.Extract({ path: 'submissions/' + benchmark + '/' + fileName }))
+				.pipe(unzip.Extract({ path: 'data/submissions/' + benchmark + '/' + fileName }))
 				.on('close', function(e) {
 					console.log("Finished unzipping! (" + e + ")")
-					processFile(fileName)
+					processFile(fileName, benchmark)
 				})
 		});
 	});
@@ -42,15 +43,26 @@ router.post('/', function(request, response) {
 })
 
 // move following to /utils ?
-function processFile(folderName) {
+function processFile(folderName, benchmark) {
 	console.log("Retrieving reward for " + folderName)
 	// call get_reward function with extracted config and controller function
 	// get score back from reward function
 
-	console.log("Reward: " + retrieve_reward(folderName));
+	var reward = retrieve_reward(folderName);
+	console.log("Reward: " + reward);
 
-	// commit new .yml file with to github branch (or whichever schema is agreed upon)
-		// .yml file will contain name, email, instituion, and score
+	var file = fs.createWriteStream('data/submissions/' + benchmark + '/' + folderName + '/' + result.yml);
+	file.write("score: " + reward);
+	
+	file.on('error', function (err) {
+    	console.log("ERROR!: " + err);
+	});
+
+	file.on('close', function() {
+		console.log("Successfully wrote to result.yml.")
+	});
+
+	file.end();
 
 	// Step 1. Read the input yaml config file that's placed in the folderName directory. Extract the environment file name and environment class name
 			// For now, it might be worth it to just encode that as part of the Google Form for simplicity and avoidance of this extra step. In addition,

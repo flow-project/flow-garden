@@ -1,1 +1,1 @@
-print("12345")
+print(len(sys.argv[1]))
