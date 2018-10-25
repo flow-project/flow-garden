@@ -48,21 +48,22 @@ function processFile(folderName, benchmark) {
 	// call get_reward function with extracted config and controller function
 	// get score back from reward function
 
-	var reward = retrieve_reward(folderName);
-	console.log("Reward: " + reward);
+	var callback = function(reward) {
+		var file = fs.createWriteStream('data/submissions/' + benchmark + '/' + folderName + '/result.yml');
+		file.write("score: " + reward);
+		
+		file.on('error', function (err) {
+	    	console.log("ERROR!: " + err);
+		});
 
-	var file = fs.createWriteStream('data/submissions/' + benchmark + '/' + folderName + '/result.yml');
-	file.write("score: " + reward);
-	
-	file.on('error', function (err) {
-    	console.log("ERROR!: " + err);
-	});
+		file.on('close', function() {
+			console.log("Successfully wrote to result.yml.")
+		});
 
-	file.on('close', function() {
-		console.log("Successfully wrote to result.yml.")
-	});
+		file.end();
+	};
 
-	file.end();
+	retrieve_reward(folderName, callback);
 
 	// Step 1. Read the input yaml config file that's placed in the folderName directory. Extract the environment file name and environment class name
 			// For now, it might be worth it to just encode that as part of the Google Form for simplicity and avoidance of this extra step. In addition,
@@ -77,7 +78,7 @@ function processFile(folderName, benchmark) {
 
 }
 
-function retrieve_reward(folderName) {
+function retrieve_reward(folderName, callback) {
 	const { spawn } = require('child_process');
 	const cmd = spawn('python', ['utils/test_bm_placeholder.py', folderName]);
 
@@ -93,7 +94,8 @@ function retrieve_reward(folderName) {
 
 	cmd.on('close', (code) => {
 	  console.log(`child process exited with code ${code}`);
-	  return out;
+	  console.log("Reward: " + out);
+	  callback(out);
 	});
 
 }
