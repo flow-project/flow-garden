@@ -42,11 +42,11 @@
             <iframe class="w-full"
                     src="https://www.youtube.com/embed/<%= benchmark.yt_string%>">
             </iframe>
-            <ol class="w-full">
+            <!-- <ol class="w-full">
               <li>flow-project: 3000</li>
               <li>flow-bro: 2000</li>
               <li>PPO-agent: 1000</li>
-            </ol>
+            </ol> -->
           </div>
           <div class="p-6 flex flex-col justify-between w-full md:w-1/2">
             <h3 class="font-medium text-grey-darkest mb-4 leading-normal"><%= benchmark.name %></h3>
@@ -54,7 +54,7 @@
               <%= benchmark.description %>
             </p>
             <a href="/benchmark/<%= benchmark.id %>">
-              <span class="text-grey-dark text-sm">Read More</span>
+              <button class="bg-transparent hover:bg-black text-black font-semibold hover:text-white py-2 px-4 mt-3 border border-black hover:border-transparent">Learn More</button>
             </a>
           </div>
         </div>
