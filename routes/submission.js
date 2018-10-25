@@ -4,6 +4,7 @@ var router = express.Router();
 const fs = require('fs');
 const unzip = require('unzip');
 var requestLib = require('request');
+const { spawn } = require('child_process');
 
 router.get('/', function(request, response) {
 	response.send('Hello World');
@@ -79,7 +80,6 @@ function processFile(folderName, benchmark) {
 }
 
 function retrieve_reward(folderName, callback) {
-	const { spawn } = require('child_process');
 	const cmd = spawn('python', ['utils/test_bm_placeholder.py', folderName]);
 
 	var out = "";
