@@ -21,7 +21,7 @@ router.post('/', function(request, response) {
 	console.log("Attempting download from: " + fileURL);
 	requestLib(fileURL).on('response', function(fileResponse) {
 
-		var fileName = "submission_" + Date.now().toISOString();
+		var fileName = "submission_" + (new Date()).toISOString();
 		var file = fs.createWriteStream(fileName + ".zip");
 		fileResponse.pipe(file);
 		
