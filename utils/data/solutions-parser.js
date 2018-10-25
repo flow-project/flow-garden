@@ -42,7 +42,7 @@ function getSolutions(benchmarkId) {
   var benchmarkSolutionDir = __dirname + '/../../data/submissions/' + benchmarkId;
   try {
     fs.readdirSync(benchmarkSolutionDir).forEach(function (solDir) {
-      var solConfig = yaml.safeLoad(fs.readFileSync(benchmarkSolutionDir + '/' + solDir + '/solution_config.yml', 'utf8'));
+      var solConfig = yaml.safeLoad(fs.readFileSync(benchmarkSolutionDir + '/' + solDir + '/submission/solution_config.yml', 'utf8'));
       var solResult = yaml.safeLoad(fs.readFileSync(benchmarkSolutionDir + '/' + solDir + '/result.yml', 'utf8'));
       
       solConfig.score = solResult.score
