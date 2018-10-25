@@ -81,10 +81,10 @@ function retrieve_reward(folderName) {
 	const { spawn } = require('child_process');
 	const cmd = spawn('python', ['utils/test_bm_placeholder.py', folderName]);
 
-	var out = -1;
+	var out = "";
 	cmd.stdout.on('data', (data) => {
 	  console.log(`stdout: ${data}`);
-	  return data.toString();
+	  out += data.toString();
 	});
 
 	cmd.stderr.on('data', (data) => {
@@ -93,6 +93,7 @@ function retrieve_reward(folderName) {
 
 	cmd.on('close', (code) => {
 	  console.log(`child process exited with code ${code}`);
+	  return out;
 	});
 
 }
