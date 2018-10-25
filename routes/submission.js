@@ -79,7 +79,7 @@ function processFile(folderName, benchmark) {
 
 function retrieve_reward(folderName) {
 	const { spawn } = require('child_process');
-	const cmd = spawn('python', ['utils/test_bm_placeholder.py', '--folder-name', folderName]);
+	const cmd = spawn('python', ['utils/test_bm_placeholder.py', folderName]);
 
 	var out = -1;
 	cmd.stdout.on('data', (data) => {
