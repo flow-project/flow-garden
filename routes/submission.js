@@ -35,7 +35,7 @@ router.post('/', function(request, response) {
 			fs.createReadStream(fileName + ".zip")
 				.pipe(unzip.Extract({ path: 'data/submissions/' + benchmark + '/' + fileName }))
 				.on('close', function(e) {
-					console.log("Finished unzipping! (" + e + ")")
+					console.log("Finished unzipping!")
 					processFile(fileName, benchmark)
 				})
 		});
