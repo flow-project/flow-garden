@@ -19,7 +19,7 @@ router.post('/', function(request, response) {
 	var fileURL = "https://drive.google.com/uc?export=download&id=" + answers["Submission"];
 	var benchmark = answers["Benchmark"];
 
-	console.log("Attempting download from: " + fileURL);
+	console.log("Attempting download from Google Drive: " + fileURL);
 	requestLib(fileURL).on('response', function(fileResponse) {
 
 		var fileName = "submission_" + (new Date()).toISOString();
