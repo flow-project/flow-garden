@@ -25,6 +25,7 @@ from ray.tune.registry import register_env
 from flow.utils.registry import make_create_env
 import flow.envs
 from flow.envs.base_env import Env
+from flow.core.util import get_rllib_config
 
 EXAMPLE_USAGE = """
 example usage:
@@ -136,9 +137,11 @@ if __name__ == "__main__":
                 params=flow_params, version=0, render=False)
             register_env(gym_env_name, create_env)
 
-            ray.init(num_cpus=3)
+            ray.init(num_cpus=1)
+            config = get_rllib_config(solution_dir)
+            config["num_workers"] = 1
             agent_cls = get_agent_class(agent_cls_name)
-            agent = agent_cls(env=gym_env_name, config=None)
+            agent = agent_cls(env=gym_env_name, config=config)
             checkpoint = solution_dir + '/' + checkpoint_name
             agent._restore(checkpoint)
             compute_action = agent.compute_action
