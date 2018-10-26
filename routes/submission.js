@@ -31,7 +31,7 @@ router.post('/', function(request, response) {
     	});
 
 		file.on('close', function() {
-			console.log("Upload successful! Unzipping.")
+			console.log("Upload successful! Unzipping to submissions directory.")
 			fs.createReadStream(fileName + ".zip")
 				.pipe(unzip.Extract({ path: 'data/submissions/' + benchmark + '/' + fileName }))
 				.on('close', function(e) {
