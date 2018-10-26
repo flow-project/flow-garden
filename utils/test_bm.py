@@ -5,7 +5,7 @@ Attributes
 EXAMPLE_USAGE : str
     Example call to the function, which is
     ::
-        python test_bm.py bottleneck0 solution_dir/bottleneck_env.py
+        python test_bm.py /path/to/solution_dir --num_rollouts 5
 
 parser : ArgumentParser
     Command-line argument parser
@@ -25,6 +25,7 @@ from ray.tune.registry import register_env
 from flow.utils.registry import make_create_env
 import flow.envs
 from flow.envs.base_env import Env
+from flow.core.util import get_rllib_config
 
 EXAMPLE_USAGE = """
 example usage:
@@ -56,8 +57,9 @@ if __name__ == "__main__":
 
     # Automatically create file indicating failure, to be overwritten
     # at the end of the script if everything runs correctly
-    result_file = open(solution_dir + "/results.txt", "w")
-    result_file.write('FAILED\n')
+    result_file = open(solution_dir + "/results.yml", "w")
+    result_file.write('score: RUNNING')
+    result_file.close()
 
     try:
         # Parse arguments
@@ -136,9 +138,11 @@ if __name__ == "__main__":
                 params=flow_params, version=0, render=False)
             register_env(gym_env_name, create_env)
 
-            ray.init(num_cpus=3)
+            ray.init(num_cpus=1)
+            config = get_rllib_config(solution_dir)
+            config["num_workers"] = 1
             agent_cls = get_agent_class(agent_cls_name)
-            agent = agent_cls(env=gym_env_name, config=None)
+            agent = agent_cls(env=gym_env_name, config=config)
             checkpoint = solution_dir + '/' + checkpoint_name
             agent._restore(checkpoint)
             compute_action = agent.compute_action
@@ -171,9 +175,12 @@ if __name__ == "__main__":
         # terminate the environment
         env.terminate()
 
-        result_file = open(solution_dir + "/results.txt", "w")
-        result_file.write(str(np.mean(rets).round(4)) + '\n')
-        result_file.write(','.join([str(s) for s in rets]))
+        result_file = open(solution_dir + "/results.yml", "w")
+        result_file.write("score: " + str(np.mean(rets).round(4)))
+        # result_file.write(','.join([str(s) for s in rets]))
+        result_file.close()
 
     except Exception as e:
-        result_file.write(str(e))
+        result_file = open(solution_dir + "/results.yml", "w")
+        result_file.write('score: FAILED')
+        result_file.close()
