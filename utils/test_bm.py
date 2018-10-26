@@ -5,7 +5,7 @@ Attributes
 EXAMPLE_USAGE : str
     Example call to the function, which is
     ::
-        python test_bm.py bottleneck0 solution_dir/bottleneck_env.py
+        python test_bm.py /path/to/solution_dir --num_rollouts 5
 
 parser : ArgumentParser
     Command-line argument parser
@@ -57,8 +57,9 @@ if __name__ == "__main__":
 
     # Automatically create file indicating failure, to be overwritten
     # at the end of the script if everything runs correctly
-    result_file = open(solution_dir + "/results.txt", "w")
-    result_file.write('FAILED\n')
+    result_file = open(solution_dir + "/results.yml", "w")
+    result_file.write('score: RUNNING')
+    result_file.close()
 
     try:
         # Parse arguments
@@ -174,9 +175,12 @@ if __name__ == "__main__":
         # terminate the environment
         env.terminate()
 
-        result_file = open(solution_dir + "/results.txt", "w")
-        result_file.write(str(np.mean(rets).round(4)) + '\n')
-        result_file.write(','.join([str(s) for s in rets]))
+        result_file = open(solution_dir + "/results.yml", "w")
+        result_file.write("score: " + str(np.mean(rets).round(4)))
+        # result_file.write(','.join([str(s) for s in rets]))
+        result_file.close()
 
     except Exception as e:
-        result_file.write(str(e))
+        result_file = open(solution_dir + "/results.yml", "w")
+        result_file.write('score: FAILED')
+        result_file.close()
