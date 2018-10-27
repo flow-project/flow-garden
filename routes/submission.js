@@ -48,7 +48,7 @@ function processFile(folderName, benchmark) {
 	console.log("Retrieving reward for " + folderName)
 	retrieve_reward(folderName);
 }
-
+ 
 function retrieve_reward(folderName) {
 	const cmd = spawn('python', ['utils/test_bm.py', folderName]);
 
