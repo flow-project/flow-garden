@@ -94,10 +94,12 @@ process.on('SIGTERM', shutDown);
 
 function shutDown() {
     console.log('Received kill signal, shutting down gracefully');
-    server.close(() => {
-        console.log('Closed out remaining connections');
-        process.exit(0);
-    });
+    setTimeout(() => {
+        server.close(() => {
+             console.log('Closed out remaining connections');
+             process.exit(0);
+        });
+    }, 1500);
 
     setTimeout(() => {
         console.error('Could not close connections in time, forcefully shutting down');
