@@ -43,7 +43,6 @@ router.post('/', function(request, response) {
 	response.sendStatus(200)
 })
 
-// move following to /utils ?
 function processFile(folderName, benchmark) {
 	console.log("Retrieving reward for " + folderName)
 	retrieve_reward(folderName);
