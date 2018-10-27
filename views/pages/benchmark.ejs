@@ -24,6 +24,7 @@
   </div>
 </section>
 
+<!-- Leaderboard -->
 <ol class="font-sans list-reset container m-auto text-grey-darkest">
   <li class="inline-block border-b border-grey-light flex justify-between items-center py-4">
     <div class="w-10 font-bold text-right">
@@ -40,7 +41,7 @@
   </li>
   <% for(var i = 0; i < solutions.length; i++) { %>
     <% var solution = solutions[i] %>
-    <li class="inline-block border-b border-grey-light flex justify-between items-center py-4">
+    <li class="inline-block border-b border-grey-light flex justify-between items-center py-4 hover:bg-grey-lighter">
       <div class="w-10 text-right">
           <%= i + 1 %>
       </div>
