@@ -24,40 +24,38 @@
   </div>
 </section>
 
+<!-- Leaderboard -->
 <ol class="font-sans list-reset container m-auto text-grey-darkest">
   <li class="inline-block border-b border-grey-light flex justify-between items-center py-4">
-    <div class="flex items-start w-2/5">
-      <div class="rounded font-bold">
-        Rank
-      </div>
-      <div class="flex-1 overflow-hidden ml-3">
-        <div>
-          <span class="font-bold">Username and Email</span>
-        </div>
-        <p class="text-black leading-normal"></p>
-      </div>
+    <div class="w-10 font-bold text-right">
+      #
     </div>
-    <span class="w-2/5 font-bold">Timestamp</span>
-    <label for="status" class="font-bold w-1/5 text-right">Score</label>
-  </li>
-  <% solutions.forEach(function(solution){ %>
-    <li class="inline-block border-b border-grey-light flex justify-between items-center py-4">
-      <div class="flex items-start w-2/5">
-        <div class="w-10 h-10 rounded mr-3">
-          <div class="rounded-full h-10 w-10 bg-grey-light m-auto"></div>
-        </div>
-        <div class="flex-1 overflow-hidden">
-          <div>
-            <span class="font-bold"><%= solution.username %></span>
-            <span class="text-grey-dark text-xs"><%= solution.email %></span>
-          </div>
-          <p class="text-black leading-normal"></p>
-        </div>
+    <div class="flex-1 overflow-hidden ml-3 w-1/4">
+      <div class="w-full">
+        <span class="font-bold">Username and Email</span>
       </div>
-      <p class="w-2/5"><%= solution.timestamp %></p>
-      <label for="status" class="font-bold w-1/5 text-right"><%= solution.score %></label>
+      <p class="text-black leading-normal"></p>
+    </div>
+    <div class="w-1/4 font-bold">Timestamp</div>
+    <label for="status" class="font-bold w-1/6 text-right">Score</label>
+  </li>
+  <% for(var i = 0; i < solutions.length; i++) { %>
+    <% var solution = solutions[i] %>
+    <li class="inline-block border-b border-grey-light flex justify-between items-center py-4 hover:bg-grey-lighter">
+      <div class="w-10 text-right">
+          <%= i + 1 %>
+      </div>
+      <div class="flex-1 overflow-hidden ml-3 w-1/4">
+        <div>
+          <span class="font-bold"><%= solution.username %></span>
+          <span class="text-grey-dark text-xs"></span>
+        </div>
+        <p class="text-black leading-normal"><%= solution.email %></p>
+      </div>
+      <p class="w-1/4"><%= solution.timestamp %></p>
+      <label for="status" class="w-1/6 text-right"><%= solution.score %></label>
     </li>
-  <% }) %>
+  <% } %>
 </ol>
 
 <% include ../partials/footer %>
