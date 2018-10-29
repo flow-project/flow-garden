@@ -23,7 +23,7 @@ router.post('/', function(request, response) {
 	requestLib(fileURL).on('response', function(fileResponse) {
 
 		var fileName = "submission_" + (new Date()).toISOString();
-		var file = fs.createWriteStream(fileName + ".zip");
+		var file = fs.createWriteStream('data/' + fileName + ".zip");
 		fileResponse.pipe(file);
 		
 		file.on('error', function (err) {
@@ -32,24 +32,25 @@ router.post('/', function(request, response) {
 
 		file.on('close', function() {
 			console.log("Upload successful! Unzipping to submissions directory.")
-			fs.createReadStream(fileName + ".zip")
-				.pipe(unzip.Extract({ path: 'data/submissions/' + benchmark + '/' + fileName }))
+			const fullPath = 'data/submissions/' + benchmark + '/' + fileName
+			fs.createReadStream('data/' + fileName + ".zip")
+				.pipe(unzip.Extract({ path: fullPath }))
 				.on('close', function(e) {
 					console.log("Finished unzipping!")
-					processFile(fileName, benchmark)
+					processFile(fullPath, benchmark)
 				})
 		});
 	});
 	response.sendStatus(200)
 })
 
-function processFile(folderName, benchmark) {
-	console.log("Retrieving reward for " + folderName)
-	retrieve_reward(folderName);
+function processFile(path, benchmark) {
+	console.log("Retrieving reward for " + path)
+	retrieve_reward(path);
 }
  
-function retrieve_reward(folderName) {
-	const cmd = spawn('python', ['utils/test_bm.py', folderName]);
+function retrieve_reward(path) {
+	const cmd = spawn('python', ['utils/test_bm.py', path]);
 
 	var out = "";
 	cmd.stdout.on('data', (data) => {
