@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/bm', benchmarkRouter);
+app.use('/benchmark', benchmarkRouter);
 app.use('/submission', submissionRouter);
 
 // catch 404 and forward to error handler
