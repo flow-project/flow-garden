@@ -51,9 +51,9 @@
           </div>
           <div class="p-6 flex flex-col justify-between w-full">
             <h3 class="font-medium text-grey-darkest mb-4 leading-normal"><%= benchmark.name %></h3>
-            <p class="inline-flex items-center">
-              <%= benchmark.description %>
-            </p>
+            <!--<p class="inline-flex items-center">-->
+              <%- benchmark.description %>
+            <!--</p>-->
             <a href="/benchmark/<%= benchmark.id %>">
               <button class="bg-transparent hover:bg-black text-grey-dark font-semibold hover:text-white py-2 px-4 mt-3 border border-grey-dark border-r-2 hover:border-transparent">Leaderboard</button>
             </a>

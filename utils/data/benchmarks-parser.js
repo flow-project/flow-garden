@@ -5,7 +5,8 @@ var fs   = require('fs');
  */
 function getBenchmarks() {
   var benchmarksData = [];
-  var benchmarksFolder = __dirname + '/../../data/benchmarks';
+  // retrieve benchmarks from flow repo
+  var benchmarksFolder = __dirname + '/../../../flow/flow/benchmarks/descriptions';
   try {
     fs.readdirSync(benchmarksFolder).forEach(function (file) {
       var doc = yaml.safeLoad(fs.readFileSync(benchmarksFolder + '/' + file, 'utf8'));
