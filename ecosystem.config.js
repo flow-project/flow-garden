@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name: 'flow-garden-pm2',
-    script: 'kill $(lsof -ti tcp:3000) && node ./bin/www',
+    script: 'startup.sh',
     kill_timeout : 3000,
     // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
     autorestart: true,

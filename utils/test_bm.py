@@ -21,6 +21,7 @@ import importlib.util as imp
 import ray
 from ray.rllib.agents.agent import get_agent_class
 from ray.tune.registry import register_env
+from ray.rllib.agents.es import es # mahesh
 
 from flow.utils.registry import make_create_env
 import flow.envs
@@ -103,13 +104,9 @@ if __name__ == "__main__":
         module = __import__(
             "flow.scenarios", fromlist=[flow_params["scenario"]])
         scenario_class = getattr(module, flow_params["scenario"])
-        module = __import__(
-            "flow.scenarios", fromlist=[flow_params["generator"]])
-        generator_class = getattr(module, flow_params["generator"])
 
         scenario = scenario_class(
             name=exp_tag,
-            generator_class=generator_class,
             vehicles=vehicles,
             net_params=net_params,
             initial_config=initial_config)
@@ -118,6 +115,7 @@ if __name__ == "__main__":
         env_params = flow_params['env']
         sumo_params = flow_params['sumo']
 
+        #import ipdb; ipdb.set_trace()
         # Find the submitted solution environment and instantiate it
         full_env_path = solution_dir + '/' + env_file_path
         spec = imp.spec_from_file_location(env_file_name, full_env_path)
@@ -127,6 +125,7 @@ if __name__ == "__main__":
 
         env = env_class(
             env_params=env_params, sumo_params=sumo_params, scenario=scenario)
+
 
         # Determine a compute_action method. If using RLlib, restore an agent
         # accordingly and initialize Ray.
@@ -140,8 +139,15 @@ if __name__ == "__main__":
 
             ray.init(num_cpus=1)
             config = get_rllib_config(solution_dir)
+            temp_config = config
+            #temp_config.update(config) #mahesh
+            #config = temp_config #mahesh
             config["num_workers"] = 1
             agent_cls = get_agent_class(agent_cls_name)
+            del config['gpu_fraction']
+            config['num_gpus'] = 0
+            del config['use_gpu_for_workers']
+            config['num_gpus_per_worker'] = 1
             agent = agent_cls(env=gym_env_name, config=config)
             checkpoint = solution_dir + '/' + checkpoint_name
             agent._restore(checkpoint)
@@ -150,6 +156,7 @@ if __name__ == "__main__":
             compute_action = env.restore()
 
         # Ensure the step method and compute_reward method are not redefined
+        #import ipdb; ipdb.set_trace()
         env.step = MethodType(Env.step, env)
         reward_env = getattr(flow.envs, flow_params['env_name'])
         env.compute_reward = MethodType(reward_env.compute_reward, env)
@@ -181,6 +188,8 @@ if __name__ == "__main__":
         result_file.close()
 
     except Exception as e:
+        print("Exception has occurred:")
+        print(str(e))
         result_file = open(solution_dir + "/results.yml", "w")
-        result_file.write('score: FAILED')
+        result_file.write('score: FAILED!')
         result_file.close()

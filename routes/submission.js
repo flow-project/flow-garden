@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
-
 const fs = require('fs');
-const unzip = require('unzip');
-var requestLib = require('request');
+const unzip = require('unzip2');
 const { spawn } = require('child_process');
+const path = require('path');
 
 router.get('/', function(request, response) {
 	response.send('Hello World');
@@ -15,41 +14,70 @@ router.post('/', function(request, response) {
 	console.log(answers);
 	var name = answers["Name"];
 	var email = answers["Email"];
-	// var fileURL = answers["Submission"];
-	var fileURL = "https://drive.google.com/uc?export=download&id=" + answers["Submission"];
+	var fileID = answers["Upload"][0] + "";
 	var benchmark = answers["Benchmark"];
+	
+	var fileName = "submission_" + (new Date()).toISOString();
+	console.log("Attempting download from Google Drive: " + fileID + " to " + fileName);
+	downloadFromDrive(fileID, benchmark, fileName, unzipAndProcess);
+	response.sendStatus(200);
+});
 
-	console.log("Attempting download from Google Drive: " + fileURL);
-	requestLib(fileURL).on('response', function(fileResponse) {
-
-		var fileName = "submission_" + (new Date()).toISOString();
-		var file = fs.createWriteStream('data/' + fileName + ".zip");
-		fileResponse.pipe(file);
-		
-		file.on('error', function (err) {
-        	console.log("ERROR!: " + err);
-    	});
-
-		file.on('close', function() {
-			console.log("Upload successful! Unzipping to submissions directory.")
-			const fullPath = 'data/submissions/' + benchmark + '/' + fileName
-			fs.createReadStream('data/' + fileName + ".zip")
-				.pipe(unzip.Extract({ path: fullPath }))
-				.on('close', function(e) {
-					console.log("Finished unzipping!")
-					processFile(fullPath, benchmark)
-				})
-		});
+function unzipAndProcess(fileName, locationOfZip, benchmark) {
+	console.log("Unzipping to submissions directory.");
+	const fullPath = 'data/submissions/' + benchmark + '/' + fileName
+	console.log("YUH: " + locationOfZip + " : " + fullPath)
+	fs.createReadStream(locationOfZip)
+	.pipe(unzip.Extract({ path: fullPath }))
+	.on('close', function(e) {
+		console.log("Finished unzipping!");
+		retrieve_reward(fullPath);
 	});
-	response.sendStatus(200)
-})
+}
 
-function processFile(path, benchmark) {
-	console.log("Retrieving reward for " + path)
-	retrieve_reward(path);
+function downloadFromDrive(fileID, benchmark, fileName, unzipCallback) {
+	const { google } = require('googleapis');
+	const credentials  = require('./credentials.json');
+	const token  = require('./token.json');
+
+	const oAuth2Client = new google.auth.OAuth2(
+		credentials.installed.client_id,
+		credentials.installed.client_secret,
+		credentials.installed.redirect_uris[0]
+	);
+
+	oAuth2Client.credentials = token;
+
+	const drive = google.drive({
+		version: 'v3',
+		auth: oAuth2Client,
+	});
+
+	const zipDestination = 'data/' + fileName + ".zip";
+
+	drive.files.get(
+		{fileId: fileID, alt: 'media'}, 
+		{responseType: 'stream'},
+		function(err, res){
+			res.data
+			.on('end', () => {
+				console.log("Successfully retrieved file (end event)!");
+			})
+			.on('error', err => {
+				console.log('Error', err);
+			})
+			.pipe(fs.createWriteStream(zipDestination))
+			.on('finish', function() {
+				console.log("Successfully wrote file and then called callback (finish event)!");
+				unzipCallback(fileName, zipDestination, benchmark);
+			});
+		}
+	);
 }
  
 function retrieve_reward(path) {
+	console.log("Retrieving reward for " + path)
+
 	const cmd = spawn('python', ['utils/test_bm.py', path]);
 
 	var out = "";

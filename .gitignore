@@ -1,3 +1,7 @@
+# MAHESH:
+routes/*.json
+data
+
 # Created by .ignore support plugin (hsz.mobi)
 ### VisualStudioCode template
 .vscode/*
