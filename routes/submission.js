@@ -4,6 +4,7 @@ const fs = require('fs');
 const unzip = require('unzip2');
 const { spawn } = require('child_process');
 const path = require('path');
+const aws = require('aws-sdk');
 
 router.get('/', function(request, response) {
 	response.send('Hello World');
@@ -70,9 +71,29 @@ function downloadFromDrive(fileID, benchmark, fileName, unzipCallback) {
 			.on('finish', function() {
 				console.log("Successfully wrote file and then called callback (finish event)!");
 				unzipCallback(fileName, zipDestination, benchmark);
+				uploadFileToS3(zipDestination);
 			});
 		}
 	);
+}
+
+function uploadFileToS3(file) {
+	const keys = require('./aws_keys.json');
+	aws.config.update({
+		accessKeyId: keys.iam_user_key,
+		secretAccessKey: keys.iam_user_secret,
+	});
+
+	var s3 = new aws.S3();
+	const params = {
+		Bucket: keys.bucket_name,
+		Body: fs.createReadStream(file),
+		Key: file
+	};
+	s3.upload(params, function (err, data) {
+		if (err) { console.log("Error", err); }
+		if (data) { console.log("Successfully uploaded " + file + " to bucket '" + keys.bucket_name + "'.");}
+	})
 }
  
 function retrieve_reward(path) {
