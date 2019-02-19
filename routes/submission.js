@@ -7,7 +7,7 @@ const path = require('path');
 const aws = require('aws-sdk');
 
 router.get('/', function(request, response) {
-	response.send('Hello World');
+	response.redirect("https://docs.google.com/a/berkeley.edu/forms/d/1DJVBZWooaQ3uActLZyQXvBg0N8cZ4qsvqABb3BjKBZA/viewform");
 });
 
 router.post('/', function(request, response) {
