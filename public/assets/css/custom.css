@@ -1,0 +1,23 @@
+/* write your custom styles here */
+.auto-resizable-iframe {
+  max-width: 420px;
+  margin: 0px auto;
+}
+
+.auto-resizable-iframe > div {
+  position: relative;
+  padding-bottom: 75%;
+  height: 0px;
+}
+
+.auto-resizable-iframe iframe {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.home-sub-tint {
+  background: rgba(0, 0, 0, 0.5)
+}

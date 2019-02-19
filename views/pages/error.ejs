@@ -1,10 +1,12 @@
 <% include ../partials/header %>
-<section class="my-8 font-sans container max-w-xl m-auto flex flex-col md:flex-row sm:items-center">
-    <div class="w-full justify-center items-start px-6 py-0 md:py-8 md:px-8 lg:items-start">
-        <h1 class="font-normal"><%= message %></h1>
-        <h2 class="font-normal"><%= error.status %></h2>
-        <pre><%= error.stack %></pre> <!-- TODO: remove error stack -->
-    </div>
+
+<section class="font-1 p-4">
+  <div class="container">
+    <h1 class="font-1"><%= message %></h1>
+    <h2 class="font-1"><%= error.status %></h2>
+    <pre><%= error.stack %></pre> <!-- TODO: remove error stack -->
+  </div>
+  <!--/.container-->
 </section>
 
 <% include ../partials/footer %>

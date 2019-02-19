@@ -1,67 +1,91 @@
 <% include ../partials/header %>
 
-<!-- About -->
-<section id="about" class="my-8 font-sans container max-w-xl m-auto flex flex-col md:flex-row sm:items-center">
-  <div class="w-full md:w-1/2 flex flex-col justify-center items-start px-6 py-0 md:py-8 md:px-8 lg:items-start">
-    <label for="tagline" class="uppercase tracking-wide text-grey-dark font-bold">About</label>
-    <h1 class="mt-2 mb-4 font-medium">Solving traffic together on Flow Garden.</h1>
-    <p class="leading-normal mb-4 text-grey-dark">Flow Garden is a new way to create, share, and compete on benchmarks for traffic control. Find existing benchmarks and
-       share your solutions to them, or create your own new benchmarks!</p>
-  </div>
-  <div class="w-full md:w-1/2 flex flex-col sm:flex-row md:flex-col justify-between md:justify-center items-center p-2 md:p-8 items-center md:items-start">
-    <div class="flex items-center mb-3">
-      <div class="w-14 h-14 rounded-full mr-4 bg-grey-light" alt="Solutions Picture"></div>
-      <div class="">
-        <h2 class="text-black font-medium">Submit solutions.</h2>
-        <p class="text-grey-dark leading-normal">Flow Garden makes it easy to submit your benchmark solutions for the world to see. Write up a controller, submit it, and share a link to your paper or solution!</p>
-      </div>
+<section class="p-0 color-white font-1">
+    <div class="background-holder overlay overlay-0" style="background-image:url(../assets/images/background/aerial-view-architecture-bridges-681335.jpg);"> </div>
+<!--/.background-holder-->
+<div class="container">
+    <div class="row h-half align-items-center py-5">
+        <div class="col-md-8 col-lg-5">
+            <h1 class="fs-3 fs-md-4 mb-3">Solve traffic together on Flow Garden</h1>
+            <p class="lead fs-xs-1">Flow Garden is a new way to create, share, and compete on benchmarks for traffic control. Find
+                existing benchmarks and
+                share your solutions to them, or create your own new benchmarks!</p>
+              </p>
+        </div>
     </div>
-    <div class="flex items-center ">
-      <div class="w-14 h-14 rounded-full mr-4 bg-grey-light" alt="Benchmarks Picture"></div>
-      <div class="">
-        <h2 class="text-black font-medium">Submit your own benchmarks.</h2>
-        <p class="text-grey-dark leading-normal">Want to draw attention to an understudied traffic task? Submit a benchmark via PR, add a description and a video, and it's up and running for other researchers to use!</p>
-      </div>
-    </div>
-  </div>
+<!--/.row-->
+</div>
+<!--/.container-->
 </section>
 
-<!-- Benchmark Cards -->
-<section id="benchmarks" class="my-8 font-sans container max-w-xl m-auto flex flex-col md:flex-row sm:items-center">
-  <div class="w-full md:w-1/2 flex flex-col justify-center items-start px-6 py-0 md:py-8 md:px-8 lg:items-start">
-    <label for="tagline" class="uppercase tracking-wide text-grey-dark font-bold">Benchmarks</label>
+<section class="font-1 p-4">
+  <div class="container text-center">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h3 class="color-1">How It Works</h3>
+        <hr class="short mb-4 color-8 mt-4">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <h4>Submit solutions.</h4>
+        <p>Flow Garden makes it easy to submit your benchmark solutions for the world to see. Write up a
+          controller, submit it, and share a link to your paper or solution!</p>
+        <h4>Submit your own benchmarks.</h4>
+        <p>Want to draw attention to an understudied traffic task? Submit a benchmark via PR, add a
+          description and a video, and it's up and running for other researchers to use!</p>
+      </div>
+    </div>
+    <!--/.row-->
   </div>
+  <!--/.container-->
 </section>
-<section class="bg-white py-4 font-sans">
-  <div class="container max-w-xl m-auto flex flex-wrap items-center justify-start">
-    <% benchmarks.forEach(function(benchmark){ %>
-      <div class="w-full mb-8 px-3">
-        <div class="overflow-hidden bg-white rounded-lg shadow hover:shadow-raised hover:translateY-2px transition
-        p-2 flex flex-col md:flex-row ">
-          <!--<img class="w-full" src="https://stitches-cdn.hyperyolo.com/demo-bg.png" alt="Sunset in the mountains">-->
-          <div class="">
-            <iframe class="w-full md:w-auto"
-                    src="https://www.youtube.com/embed/<%= benchmark.yt_string%>">
-            </iframe>
-            <!-- <ol class="w-full">
-              <li>flow-project: 3000</li>
-              <li>flow-bro: 2000</li>
-              <li>PPO-agent: 1000</li>
-            </ol> -->
-          </div>
-          <div class="p-6 flex flex-col justify-between w-full">
-            <h3 class="font-medium text-grey-darkest mb-4 leading-normal"><%= benchmark.name %></h3>
-            <!--<p class="inline-flex items-center">-->
-              <%- benchmark.description %>
-            <!--</p>-->
-            <a href="/benchmark/<%= benchmark.id %>">
-              <button class="bg-transparent hover:bg-black text-grey-dark font-semibold hover:text-white py-2 px-4 mt-3 border border-grey-dark border-r-2 hover:border-transparent">Leaderboard</button>
+
+<section class="text-center font-1 p-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h3 class="color-1">Benchmarks</h3>
+        <hr class="short mb-4 color-8 mt-4">
+      </div>
+    </div>
+    <div class="row">
+      <% benchmarks.forEach(function(benchmark){ %>
+      <div class="col-md-6">
+        <div class="card">
+          <!-- <a class="overflow-hidden" href="on-ramp.html">
+            <img class="card-img-top" src="../assets/images/experiments/on-ramp.jpeg" alt="Card image cap">
+          </a> -->
+
+          <iframe class="" src="https://www.youtube.com/embed/<%= benchmark.yt_string%>"></iframe>
+          <div class="card-block">
+            <a class="color-2" href="on-ramp.html">
+              <h5 class="card-title"><%= benchmark.name %></h5>
             </a>
+            <p class="card-text color-2 font-1"><%- benchmark.description %> </p>
+          </div>
+          <div class="card-footer">
+            <div class="media align-items-center">
+              <a href="/benchmark/<%= benchmark.id %>">
+                <a target="_blank" href="/benchmark/<%= benchmark.id %>"><span
+                    class="fa fa-trophy"></span> Leaderboard</a>
+                <div class="media-body l-h-0">
+                  <a class="color-1" href="../team.html">
+                    <h6 class="mb-0">Created by Flow Team</h6>
+                  </a>
+                  <span class="fs--1 color-2">2018</span>
+                </div>
+            </div>
           </div>
         </div>
+        <div class="my-6"></div>
       </div>
-    <%  })  %>
+      <%  })  %>
+
+    </div>
   </div>
+  <!--/.container-->
 </section>
- 
+
 <% include ../partials/footer %>

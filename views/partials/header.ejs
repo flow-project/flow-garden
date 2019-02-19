@@ -1,27 +1,96 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/stitches.css">
-    <link href=https://fonts.googleapis.com/css?family=Muli:300,400,600,700,800,900 rel="stylesheet">
-    <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.0.13/css/all.css integrity=sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp crossorigin="anonymous">
-    <title><%= title %></title>
-</head>
-<body><nav class="font-sans bg-white text-center flex justify-between my-4 mx-auto container overflow-hidden">
-    <a href="/" class="block text-left">
-        <!-- TODO: replace logo -->
-        <!-- <img src="https://stitches-cdn.hyperyolo.com/logo.png" class="h-8 rounded-full" alt="logo"> -->
-        <h1 class="font-large text-grey-darkest hover:text-grey-dark no-underline">Flow Garden 🌼</h1>
-    </a>
-    <!-- TODO: hamburger menu when small or always -->
-    <ul class="text-sm text-grey-dark list-reset flex items-center">
-        <li><a href="/#about" class="inline-block py-2 px-3 text-grey-darkest hover:text-grey-dark no-underline">About</a></li>
-        <li><a href="/#benchmarks" class="inline-block py-2 px-3 text-grey-darkest hover:text-grey-dark no-underline">Benchmarks</a></li>
-        <li><a href="https://flow-project.github.io" class="inline-block py-2 px-3 text-grey-darkest hover:text-grey-dark no-underline">Flow</a></li>
-        <li class="pr-2"><a href="#" class="inline-block py-2 px-3 text-grey-darkest hover:text-grey-dark no-underline">FAQs</a></li>
-        <!--<button class="bg-black hover:bg-grey-darker text-white ml-4 py-2 px-3">-->
-            <!--Submit Benchmark-->
-        <!--</button>-->
-    </ul>
-</nav>
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--  -->
+        <!--    Document Title-->
+        <!-- =============================================-->
+        <title>Flow Garden</title>
+        <!--  -->
+        <!--    Favicons-->
+        <!--    =============================================-->
+        <link rel="apple-touch-icon" sizes="57x57" href="../assets/images/favicons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="../assets/images/favicons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="../assets/images/favicons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="../assets/images/favicons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="../assets/images/favicons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="../assets/images/favicons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="../assets/images/favicons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="../assets/images/favicons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/favicons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="../assets/images/favicons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="../assets/images/favicons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicons/favicon-16x16.png">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="../assets/images/favicons/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        <!--  -->
+        <!--    Stylesheets-->
+        <!--    =============================================-->
+        <!-- Default stylesheets-->
+        <link href="../assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Template specific stylesheets-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:100,300,400,600" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i" rel="stylesheet">
+        <link href="../assets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="../assets/lib/css-hamburgers/dist/hamburgers.css" rel="stylesheet">
+        <!-- Main stylesheet and color file-->
+        <link href="../assets/css/style.css" rel="stylesheet">
+        <link href="../assets/css/custom.css" rel="stylesheet"> 
+    </head>
+
+    <body data-spy="scroll" data-target=".inner-link" data-offset="60">
+        <main>
+        <div class="znav-container znav" id="znav-container">
+            <div class="container">
+                <nav class="navbar navbar-toggleable-md">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <div class="hamburger hamburger--emphatic">
+                            <div class="hamburger-box">
+                                <div class="hamburger-inner"></div>
+                            </div>
+                        </div>
+                    </button>
+                    <a class="navbar-brand overflow-hidden" href="/">
+    <!--                             <span class="icon-Knight fw-300" ></span>-->
+                        Flow Garden   🌼
+    <!--                            <img src="assets/images/posh-logo.png" alt="logo" width="80px">-->
+                    </a>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav ml-auto">
+                            <li>
+                                <a href="https://flow-project.github.io/usingFlow.html"> <span class="icon-Arrow-Right2 fw-300 color-warning" ></span> Get Started</a>
+                            </li>
+                            <li>
+                                <a href="JavaScript:void(0)">Resources</a>
+                                <ul class="dropdown dropdown-push-left">
+                                    <li>
+                                        <a href="https://flow-project.github.io/gallery/index.html">Gallery</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://flow-project.github.io/publications.html">Publications</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://flow-project.github.io/tutorial.html">Tutorials</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="JavaScript:void(0)">About</a>
+                                <ul class="dropdown">
+                                    <li>
+                                        <a href="https://flow-project.github.io/team.html">Team</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://flow-project.github.io/contact.html">Contact</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>

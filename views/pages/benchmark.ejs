@@ -1,68 +1,67 @@
 <% include ../partials/header %>
 
-<!--<section class="font-sans flex flex-col lg:flex-row">-->
-  <!--<div class="w-full lg:w-1/2"><img src="https://stitches-cdn.hyperyolo.com/demo-phone.png" alt=""></div>-->
-  <!--<div class="w-full lg:w-1/2 flex flex-col items-center justify-center text-center p-8">-->
-    <!--<h1 class="my-4 font-normal"><%= benchmark.name %></h1>-->
-    <!--<p class="leading-normal mb-4 w-2/3 text-grey-dark"><%= benchmark.description %></p>-->
-  <!--</div>-->
-<!--</section>-->
-
-<section class="bg-grey-lighter font-sans">
-  <div class="container m-auto flex flex-col md:flex-row max-w-xl">
-    <div class="flex flex-col w-full lg:w-1/2 justify-center items-start py-8">
-      <label for="tagline" class="uppercase tracking-loose">Benchmark</label>
-      <h1 class="my-4 font-normal"><%= benchmark.name %></h1>
-      <p class="leading-normal mb-4"><%- benchmark.description %></p>
-      <div class="inline-block pr-4">
-        <a class="no-underline" href="<%= benchmark.explanation_link %>">
-          <button class="bg-transparent hover:bg-black text-black font-semibold hover:text-white py-2 px-4 border border-black hover:border-transparent">Learn More</button>
-        </a>
-        <a class="no-underline" href="https://docs.google.com/a/berkeley.edu/forms/d/1DJVBZWooaQ3uActLZyQXvBg0N8cZ4qsvqABb3BjKBZA/viewform">
-          <button class="bg-transparent hover:bg-black text-black font-semibold hover:text-white py-2 px-4 border border-black hover:border-transparent">Submit Solutions</button>
-        </a>
+<section class="font-1 py-4">
+  <div class="container">
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col-lg-6">
+        <h3 class="my-4"><%= benchmark.name %></h3>
+        <p class="mb-4"><%- benchmark.description %></p>
+        <div class="inline-block pr-4">
+          <a href="<%= benchmark.explanation_link %>" class="btn btn-xs btn-icon btn-secondary btn-icon-left" target="_blank">
+            <span class="fa fa-file-text">
+            </span> Learn More
+          </a>
+          <a  target="_blank" href="https://docs.google.com/a/berkeley.edu/forms/d/1DJVBZWooaQ3uActLZyQXvBg0N8cZ4qsvqABb3BjKBZA/viewform" 
+              class="btn btn-xs btn-icon btn-primary btn-icon-left" target="_blank">
+            <span class="fa fa-cloud-upload">
+            </span> Submit Solutions
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6 auto-resizable-iframe py-6">
+      <div> <!-- required for ifram css -->
+      <iframe
+        src="https://www.youtube.com/embed/<%= benchmark.yt_string%>?autoplay=1&mute=1&loop=1&playlist=<%= benchmark.yt_string%>">
+        <!-- mute=1 required for autoplay, playlist required for looping on single video -->
+      </iframe>
+      </div>
       </div>
     </div>
-    <!--<div class="w-full lg:w-1/2 lg:py-6"><img src="https://stitches-cdn.hyperyolo.com/demo-devices.png" alt="image" class="w-full"></div>-->
-    <div class="w-full lg:w-1/2 py-6 m-auto"><iframe class="w-full h-64"
-            src="https://www.youtube.com/embed/<%= benchmark.yt_string%>?autoplay=1&mute=1&loop=1&playlist=<%= benchmark.yt_string%>">
-            <!-- mute=1 required for autoplay, playlist required for looping on single video -->
-    </iframe></div>
+    <!--/.row-->
   </div>
+  <!--/.jumbotron-->
+  </div>
+  <!--/.container-->
 </section>
 
+
 <!-- Leaderboard -->
-<ol class="font-sans list-reset container m-auto text-grey-darkest">
-  <li class="inline-block border-b border-grey-light flex justify-between items-center py-4">
-    <div class="w-10 font-bold text-right">
-      #
-    </div>
-    <div class="flex-1 overflow-hidden ml-3 w-1/4">
-      <div class="w-full">
-        <span class="font-bold">Username and Email</span>
-      </div>
-      <p class="text-black leading-normal"></p>
-    </div>
-    <div class="w-1/4 font-bold">Timestamp</div>
-    <label for="status" class="font-bold w-1/6 text-right">Score</label>
-  </li>
-  <% for(var i = 0; i < solutions.length; i++) { %>
-    <% var solution = solutions[i] %>
-    <li class="inline-block border-b border-grey-light flex justify-between items-center py-4 hover:bg-grey-lighter">
-      <div class="w-10 text-right">
-          <%= i + 1 %>
-      </div>
-      <div class="flex-1 overflow-hidden ml-3 w-1/4">
-        <div>
-          <span class="font-bold"><%= solution.username %></span>
-          <span class="text-grey-dark text-xs"></span>
-        </div>
-        <p class="text-black leading-normal"><%= solution.email %></p>
-      </div>
-      <p class="w-1/4"><%= solution.timestamp %></p>
-      <label for="status" class="w-1/6 text-right"><%= solution.score %></label>
-    </li>
-  <% } %>
-</ol>
+<section class="px-6 font-1 py-4">
+<h2 class="fs-3 mb-1 fw-200">Leaderboard</h2>
+<div class="table-responsive pt-5">
+  <table class="table table-striped">
+      <thead>
+          <tr>
+            <th>Rank</th>
+              <th>Username</th>
+              <th>Date</th>
+              <th>Score</th>
+          </tr>
+      </thead>
+      <tbody>
+        <% for(var i = 0; i < solutions.length; i++) { %>
+          <% var solution = solutions[i] %>
+          <tr>
+            <td><%= i + 1 %></td>
+            <td><%= solution.username %></td>
+            <td><%= solution.timestamp %></td>
+            <td><%= solution.score %></td>
+          </tr>
+        <% } %>
+      </tbody>
+  </table>
+</div>
+</section>
 
 <% include ../partials/footer %>
